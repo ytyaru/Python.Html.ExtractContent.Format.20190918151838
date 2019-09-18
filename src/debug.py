@@ -22,6 +22,7 @@ def format_to_text(html):
     st = re.sub(r"[ \t]+", " ", st)
     return st.rstrip("\n\t ")
 
+print(extractcontent3.__file__)
 if len(sys.argv) < 1:
     raise Error('第1引数にHTMLファイルパスを指定してください。')
     exit()
@@ -30,12 +31,19 @@ if not os.path.isfile(sys.argv[0]):
     exit()
 
 extractor = extractcontent3.ExtractContent()
-#https://github.com/yono/python-extractcontent
-#opt = {"threshold":50}
-#extractor.set_option(opt)
+print(dir(extractor ))
+
+opt = {"threshold":50}
+extractor.set_option(opt)
 
 html = open("index.html").read()
 extractor.analyse(html)
+text, title = extractor.as_text()
 html, title = extractor.as_html()
+title = extractor.extract_title(html)
+
+print(title)
+print(text)
+print(html)
 print(format_to_text(html))
 
